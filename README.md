@@ -1,3 +1,58 @@
+# Instructions
+
+## How to run the project
+
+This project is using Vite as a build tool with a simple Typescript template.
+
+To run the project locally, ensure you have Node.js version 20.9.0 installed. It's recommended to use [nvm](https://github.com/nvm-sh/nvm).
+
+Run the following commands:
+
+```bash
+nvm use
+npm install
+npm run dev
+```
+
+The app will be available at `http://localhost:3000/`.
+
+## Running the tests
+
+This project is using Jest and React Testing Library for component testing.
+
+Run `npm run test:watch` to run and watch the tests
+
+Run `npm run test` to run all tests
+
+## Stack
+
+- React
+- TypeScript
+- Vite
+- Mantine
+- React Query
+- Jest
+- Testing Library
+- Javascript Fetch API
+- React Router DOM
+
+## Screens
+
+- Planet list
+  ![Planet list](docs/screens/planet-list.png)
+
+- Planet screen
+  ![Planet screen](docs/screens/planet-screen.png)
+
+- Blocking transactions
+  ![Blocking transactions](docs/screens/block-transactions.png)
+
+<br /><br />
+
+<hr>
+
+<br /><br />
+
 <div align='center'>
   <img width='100%' src='https://blog.ledn.io/hs-fs/hubfs/Ledn_Animation_short-1.gif?width=1017&name=Ledn_Animation_short-1.gif'/>
   <br><br>
