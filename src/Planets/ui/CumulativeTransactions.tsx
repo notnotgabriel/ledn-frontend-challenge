@@ -27,7 +27,7 @@ export function CumulativeTransactions({
 
   return (
     <Group>
-      <Stack gap={1}>
+      <Stack gap={1} data-testid='total-ics'>
         <Text fw='bold'>Total ICS</Text>
         <NumberFormatter
           prefix='$ '
@@ -36,7 +36,7 @@ export function CumulativeTransactions({
           decimalScale={2}
         />
       </Stack>
-      <Stack gap={1}>
+      <Stack gap={1} data-testid='total-gcs'>
         <Text fw='bold'>Total GCS</Text>
         <NumberFormatter
           prefix='$ '
@@ -45,7 +45,7 @@ export function CumulativeTransactions({
           decimalScale={2}
         />
       </Stack>
-      <Stack gap={1}>
+      <Stack gap={1} data-testid='rate'>
         <Text fw='bold'>Rate</Text>
         <NumberFormatter value={rate} decimalScale={2} />
       </Stack>

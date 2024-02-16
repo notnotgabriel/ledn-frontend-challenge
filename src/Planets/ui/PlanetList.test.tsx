@@ -16,7 +16,7 @@ describe('PlanetList', () => {
     fetchMock.resetMocks()
   })
   it('should render a list of planets', async () => {
-    const numberOfPlanetsWithResidents = 49
+    const numberOfPlanetsWithResidents = 48
 
     fetchMock.mockResponseOnce((req) => {
       if (req.url === '/api/planets') {
@@ -53,13 +53,14 @@ describe('PlanetList', () => {
       screen.queryByTestId('loading-planets')
     )
 
+    // N of planets + table heading row
     expect(screen.getAllByRole('row')).toHaveLength(
-      numberOfPlanetsWithResidents
+      numberOfPlanetsWithResidents + 1
     )
 
     const firstPlanetRow = screen.getAllByRole('row')[1]
 
-    expect(within(firstPlanetRow).getByText(/Tatooine/)).toBeVisible()
+    expect(within(firstPlanetRow).getByText(/Tatooine/i)).toBeVisible()
     expect(within(firstPlanetRow).getByText(/3/)).toBeVisible()
 
     expect(

@@ -11,7 +11,8 @@ export function useUpdateBatch() {
     },
     onSuccess: (data) => {
       toast.success(data.message, {
-        autoClose: 2000,
+        autoClose: false,
+        hideProgressBar: true,
         position: 'top-right'
       })
     },

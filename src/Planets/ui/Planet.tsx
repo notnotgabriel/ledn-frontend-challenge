@@ -1,5 +1,14 @@
 import { useParams } from 'react-router-dom'
-import { Title, Paper, Text, Stack, Table, Group, Button } from '@mantine/core'
+import {
+  Title,
+  Paper,
+  Text,
+  Stack,
+  Table,
+  Group,
+  Button,
+  NumberFormatter
+} from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 
 import { useFetchPlanetByID } from './hooks/useFetchPlanetByID'
@@ -10,7 +19,7 @@ import { BlockTransactionsModal } from './BlockTransactionsModal'
 
 export function Planet() {
   const { planetID } = useParams<{ planetID: string }>()
-  const { data, isLoading } = useFetchPlanetByID(planetID)
+  const { data, isFetching } = useFetchPlanetByID(planetID)
   const [opened, { open, close }] = useDisclosure(false)
 
   const usersID = data?.residents || []
@@ -19,15 +28,16 @@ export function Planet() {
     transactions = [],
     filterByDate,
     filterByStatus,
-    filterByCurrency
+    filterByCurrency,
+    isFetching: isFetchingTransactions
   } = useTransactionFilters({
     planetID: data?.id,
     usersID
   })
 
-  if (isLoading) {
+  if (isFetching) {
     // TODO: add skeleton
-    return <p>loading planet...</p>
+    return <p data-testid='loading-planet'>loading planet...</p>
   }
 
   function handleBlockClick() {
@@ -36,7 +46,14 @@ export function Planet() {
 
   const rows = transactions.map((transaction) => (
     <Table.Tr key={transaction.id}>
-      <Table.Td>{transaction.amount}</Table.Td>
+      <Table.Td>
+        <NumberFormatter
+          prefix='$ '
+          value={transaction.amount}
+          thousandSeparator
+          decimalScale={2}
+        />
+      </Table.Td>
       <Table.Td>{transaction.currency}</Table.Td>
       <Table.Td>{transaction.date}</Table.Td>
       <Table.Td>{transaction.status}</Table.Td>
@@ -64,18 +81,24 @@ export function Planet() {
               filterByStatus={filterByStatus}
               filterByCurrency={filterByCurrency}
             />
-            <Table horizontalSpacing='md' verticalSpacing='sm'>
-              <Table.Thead>
-                <Table.Tr>
-                  <Table.Th>Amount</Table.Th>
-                  <Table.Th>Currency</Table.Th>
-                  <Table.Th>Date</Table.Th>
-                  <Table.Th>Status</Table.Th>
-                  <Table.Th>User</Table.Th>
-                </Table.Tr>
-              </Table.Thead>
-              <Table.Tbody>{rows}</Table.Tbody>
-            </Table>
+            {isFetchingTransactions ? (
+              <Text data-testid='loading-transactions'>
+                loading transactions...
+              </Text>
+            ) : (
+              <Table horizontalSpacing='md' verticalSpacing='sm'>
+                <Table.Thead>
+                  <Table.Tr>
+                    <Table.Th>Amount</Table.Th>
+                    <Table.Th>Currency</Table.Th>
+                    <Table.Th>Date</Table.Th>
+                    <Table.Th>Status</Table.Th>
+                    <Table.Th>User</Table.Th>
+                  </Table.Tr>
+                </Table.Thead>
+                <Table.Tbody>{rows}</Table.Tbody>
+              </Table>
+            )}
           </Stack>
         </Paper>
       </Stack>

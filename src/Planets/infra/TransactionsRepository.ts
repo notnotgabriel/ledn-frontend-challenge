@@ -22,6 +22,7 @@ export async function updateBatch(
         transactions: transactions
       })
     })
+
     const data = await response.json()
     return data
   } catch (error) {
