@@ -44,12 +44,8 @@ export function useFetchPlanets() {
     })
     .sort(sortPlanets)
 
-  queryClient.setQueryData(['planets'], () => ({
-    planets
-  }))
-
   return {
-    data: data || [],
+    data: planets || [],
     isFetched,
     ...rest
   }

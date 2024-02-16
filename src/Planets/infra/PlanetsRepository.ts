@@ -2,8 +2,14 @@ import { type RawPlanets } from '../domain/planets'
 
 export async function fetchPlanets(): Promise<RawPlanets> {
   try {
-    const response = fetch('/api/planets').then((res) => res.json())
-    return response
+    const response = await fetch('/api/planets')
+
+    if (!response.ok) {
+      throw new Error('Failed to get planets')
+    }
+
+    const data = await response.json()
+    return data
   } catch (error) {
     throw error
   }
@@ -12,10 +18,9 @@ export async function fetchPlanets(): Promise<RawPlanets> {
 export async function fetchPlanetByID(planetID?: string) {
   try {
     if (planetID) {
-      const response = fetch(`/api/planets/${planetID}`).then((res) =>
-        res.json()
-      )
-      return response
+      const response = await fetch(`/api/planets/${planetID}`)
+      const data = await response.json()
+      return data
     }
     return null
   } catch (error) {

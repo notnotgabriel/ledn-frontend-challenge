@@ -4,10 +4,9 @@ export async function fetchTransactionsByUsers(
   usersId?: string[]
 ): Promise<RawTransactions> {
   try {
-    const response = fetch(`/api/transactions/users/[${usersId}]`).then((res) =>
-      res.json()
-    )
-    return response
+    const response = await fetch(`/api/transactions/users/[${usersId}]`)
+    const data = await response.json()
+    return data
   } catch (error) {
     throw error
   }
@@ -17,13 +16,14 @@ export async function updateBatch(
   transactions?: Transaction[]
 ): Promise<{ message: string; transactions: Transaction[] }> {
   try {
-    const response = fetch('/api/transactions/update-batch', {
+    const response = await fetch('/api/transactions/update-batch', {
       method: 'PUT',
       body: JSON.stringify({
         transactions: transactions
       })
-    }).then((res) => res.json())
-    return response
+    })
+    const data = await response.json()
+    return data
   } catch (error) {
     throw error
   }

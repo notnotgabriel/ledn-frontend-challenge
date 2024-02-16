@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 import { useFetchPlanets } from './hooks/useFetchPlanets'
 
 export function PlanetList() {
-  const { data: planets, isLoading: isLoadingPlanets } = useFetchPlanets()
+  const { data: planets, isFetching } = useFetchPlanets()
 
-  if (isLoadingPlanets) {
+  if (isFetching) {
     // TODO: add skeleton
-    return <p>Loading planets...</p>
+    return <p data-testid='loading-planets'>Loading planets...</p>
   }
 
   if (!planets || !planets.length) {

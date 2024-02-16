@@ -1,4 +1,3 @@
-import type { ReactElement } from 'react'
 import { render, type RenderOptions } from '@testing-library/react'
 import {
   QueryClient,
@@ -10,13 +9,14 @@ import { MantineProvider } from '@mantine/core'
 import { BrowserRouter } from 'react-router-dom'
 
 const renderWithReactQuery = (
-  children: ReactElement,
+  children: React.ReactNode,
   config?: QueryClientConfig
 ) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        retry: false
+        retry: false,
+        refetchOnWindowFocus: false
       }
     },
     ...config
@@ -27,14 +27,14 @@ const renderWithReactQuery = (
   )
 }
 
-const renderWithRouter = (children: ReactElement) => {
+const renderWithRouter = (children: React.ReactNode) => {
   return <BrowserRouter>{children}</BrowserRouter>
 }
 
 class Renderer {
-  protected rendered: ReactElement
+  protected rendered: React.ReactNode
 
-  constructor(children: ReactElement) {
+  constructor(children: React.ReactNode) {
     this.rendered = children
   }
 
@@ -55,6 +55,6 @@ class Renderer {
   }
 }
 
-export function renderer(children: ReactElement) {
+export function renderer(children: React.ReactNode) {
   return new Renderer(children)
 }

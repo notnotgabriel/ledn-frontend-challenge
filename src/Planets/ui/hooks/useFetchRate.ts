@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { fetchRate } from '../../infra/rateRepository'
+import { fetchRate } from '../../infra/RateRepository'
 
 export function useFetchRate() {
   return useQuery({
