@@ -3,11 +3,13 @@ import { toast } from 'react-toastify'
 
 import { updateBatch } from '../../infra/TransactionsRepository'
 import { type Transaction } from '../../domain/transactions'
+import { filterInProgressTransactions } from '../../infra/transactionsMapper'
 
 export function useUpdateBatch() {
   return useMutation({
     mutationFn: (transactions?: Transaction[]) => {
-      return updateBatch(transactions)
+      const inProgress = filterInProgressTransactions(transactions)
+      return updateBatch(inProgress)
     },
     onSuccess: (data) => {
       toast.success(data.message, {

@@ -145,12 +145,15 @@ describe('Planet', () => {
     )
 
     await waitFor(() => {
-      expect(fetchMock).toHaveBeenCalledWith('/api/transactions/update-batch', {
-        body: JSON.stringify({
-          transactions: transactions
-        }),
-        method: 'PUT'
-      })
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        '/api/transactions/update-batch',
+        {
+          body: JSON.stringify({
+            transactions: [mockTransactions[1]]
+          }),
+          method: 'PUT'
+        }
+      )
     })
   })
 
